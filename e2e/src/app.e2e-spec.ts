@@ -1,14 +1,14 @@
 import { AppPage } from './app.po';
 
-describe('workspace-project App', () => {
-  let page: AppPage;
+describe( 'workspace-project App', () => {
+  let page : AppPage;
 
-  beforeEach(() => {
+  beforeEach( () => {
     page = new AppPage();
-  });
+  } );
 
-  it('should display welcome message', () => {
+  it( 'should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to speech-directory!');
-  });
-});
+    expect( page.getParagraphText() ).toEqual( 'Welcome to speech-directory!' );
+  } );
+} );
