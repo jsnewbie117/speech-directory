@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "firstName": "Annamarie",
+    "lastName": "Meekings",
+    "username": "user1",
+    "password": "password",
+    "avatar": "https://robohash.org/remvoluptasmolestiae.png?size=50x50&set=set1"
+  },
+  {
+    "id": 2,
+    "firstName": "Rodolph",
+    "lastName": "Clemon",
+    "username": "user2",
+    "password": "password",
+    "avatar": "https://robohash.org/reiciendissuscipitmodi.png?size=50x50&set=set1"
+  },
+  {
+    "id": 3,
+    "firstName": "Shana",
+    "lastName": "Parfitt",
+    "username": "user3",
+    "password": "password",
+    "avatar": "https://robohash.org/similiquemaioreshic.jpg?size=50x50&set=set1"
+  }
+]

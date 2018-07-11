@@ -5,4 +5,5 @@ export interface AppStateModel {
   currentUser : UserModel;
   mySpeeches : SpeechModel[];
   publicSpeeches : SpeechModel[];
+  selectedSpeech : SpeechModel;
 }

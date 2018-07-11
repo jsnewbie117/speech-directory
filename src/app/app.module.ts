@@ -1,10 +1,11 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxsModule } from '@ngxs/store';
+import { AppState } from './_state/app/app.state';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppState } from './states/app/app.state';
 
 @NgModule( {
   declarations : [
@@ -12,6 +13,7 @@ import { AppState } from './states/app/app.state';
   ],
   imports : [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     NgxsModule.forRoot( [ AppState ] )
   ],

@@ -1,7 +1,7 @@
 import { UserModel } from './user.model';
 
 export interface SpeechModel {
-  id : number;
+  id? : number;
   title : string;
   content : string;
   authorId : number;
