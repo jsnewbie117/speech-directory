@@ -99,7 +99,7 @@ export class AppState {
         return keyword.toLowerCase().indexOf( term ) > -1;
       } ).length > 0;
       return matchedTitle || matchedContent || matchedKeywords;
-    }) ).pipe( tap( ( mySpeeches : SpeechModel[] ) => patchState( { mySpeeches } ) ) );
+    }) ).pipe( tap( ( publicSpeeches : SpeechModel[] ) => patchState( { publicSpeeches } ) ) );
   }
 
   @Action( AddSpeech )

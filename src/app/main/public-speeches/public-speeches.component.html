@@ -1,3 +1,36 @@
-<p>
-    public-speeches works!
-</p>
+<div class="container-fluid">
+    <div class="search-container mb-5 mt-5">
+        <form #searchForm="ngForm" (ngSubmit)="search()">
+            <div class="form-group text-center">
+                <label for="search">Search for Speeches</label>
+                <input type="email" class="form-control mb-2" id="search" name="search" [(ngModel)]="term"
+                       placeholder="Search title, content, or keyword of a Speech">
+                <button class="btn btn-primary mr-2" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col col-md-6 col-lg-4 col-xl-3 mb-4"
+             *ngFor="let speech of speeches$ | async">
+            <div class="card"
+             style="min-width: 280px;">
+            <div class="card-body">
+                <h5 class="card-title mb-3">{{speech.title}}</h5>
+                <div class="content-container mb-4">
+                    <p *ngFor="let content of speech.contents">{{content}}</p>
+                </div>
+                <div class="d-flex justify-content-start align-items-center">
+                    <div class="avatar-container rounded-circle border border-secondary mr-3">
+                        <img class="rounded-circle" [src]="speech.author.avatar" height="50px" width="50px">
+                    </div>
+                    <h6 class="mb-0 text-muted">
+                        {{speech.author.firstName | slice : 0 : 1}}.
+                        {{speech.author.lastName}} <br/>
+                        <span class="small">{{speech.dateOfSpeech | date}}</span>
+                    </h6>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
