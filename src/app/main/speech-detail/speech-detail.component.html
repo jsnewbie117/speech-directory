@@ -1,3 +1,41 @@
-<p>
-    speech-detail works!
-</p>
+<div *ngIf="(speech$ | async) != null">
+    <div class="mb-4 d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-start align-items-center">
+            <div class="avatar-container rounded-circle border border-secondary mr-3">
+                <img class="rounded-circle" [src]="(speech$ | async).author.avatar">
+            </div>
+            <h4>
+                {{(speech$ | async).title}}
+                <span class="small ml-1" [ngbTooltip]="(speech$ | async).isPublic ? 'Public Speech' : 'Private Speech'">
+                    <i class="fas fa-{{(speech$ | async).isPublic ? 'globe' : 'lock'}}"></i>
+                </span>
+                <br/>
+                <span class="small">
+                {{(speech$ | async).author.firstName | slice : 0 : 1}}. {{(speech$ | async).author.lastName}} -
+                {{(speech$ | async).dateOfSpeech | date}}
+            </span>
+            </h4>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Actions
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button class="dropdown-item" (click)="editSpeech()">Edit</button>
+                <button class="dropdown-item" (click)="toggleSpeech()">
+                    {{(speech$ | async).isPublic ? 'Unshare' : 'Share'}}
+                </button>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div class="content-container mb-2">
+        <p *ngFor="let content of (speech$ | async).contents">{{content}}</p>
+    </div>
+    <h5 class="mb-4">
+        <span class="badge badge-secondary mr-2" *ngFor="let keyword of (speech$ | async).keywords">{{keyword}}</span>
+    </h5>
+
+</div>

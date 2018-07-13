@@ -4,6 +4,7 @@ import { MainComponent } from './main.component';
 import { MySpeechesComponent } from './my-speeches/my-speeches.component';
 import { NewSpeechComponent } from './new-speech/new-speech.component';
 import { PublicSpeechesComponent } from './public-speeches/public-speeches.component';
+import { SpeechPageComponent } from './speech-page/speech-page.component';
 
 const routes : Routes = [
   {
@@ -17,6 +18,10 @@ const routes : Routes = [
       {
         path : 'search',
         component : PublicSpeechesComponent
+      },
+      {
+        path : 'speech/:id',
+        component : SpeechPageComponent
       },
       {
         path : '',

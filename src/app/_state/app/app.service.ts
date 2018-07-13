@@ -19,6 +19,7 @@ export class AppService {
         this.users = <UserModel[]>users;
         this.speeches = (<SpeechModel[]>speeches).map( ( speech : SpeechModel ) => {
           speech.author = this.users.find( user => user.id === speech.authorId );
+          speech.contents = speech.content.split( '\n' );
           return speech;
         } );
         this.speechId = this.speeches.length + 1;
@@ -52,6 +53,7 @@ export class AppService {
       setTimeout( () => {
         speech.id = this.speechId++;
         speech.author = this.users.find( ( user : UserModel ) => user.id === speech.authorId );
+        speech.contents = speech.content.split( '\n' );
         obs.next( speech );
         obs.complete();
       }, 1000 );
@@ -61,9 +63,14 @@ export class AppService {
   editSpeech( speech : SpeechModel ) : Observable<SpeechModel> {
     return new Observable( ( obs : Observer<SpeechModel> ) => {
       setTimeout( () => {
-        this.speeches.map( ( speechTemp : SpeechModel ) => {
+        this.speeches = this.speeches.map( ( speechTemp : SpeechModel ) => {
           if ( speechTemp.id === speech.id ) {
-            speechTemp = <SpeechModel>{ ...speech };
+            speechTemp = <SpeechModel>{
+              ...speech,
+              author : this.users.find( ( user : UserModel ) => user.id === speech.authorId ),
+              contents : speech.content.split( '\n' )
+            };
+            speech = speechTemp;
           }
           return speechTemp;
         } );

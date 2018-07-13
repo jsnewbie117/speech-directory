@@ -79,8 +79,9 @@ export class AppState {
       .pipe( tap( ( mySpeeches : SpeechModel[] ) => patchState( { mySpeeches } ) ) );
   }
 
-  @Action( GetSpeech )
+  @Action( GetSpeech, { cancelUncompleted : true } )
   getSpeech( { getState, patchState } : StateContext<AppStateModel>, { id } : GetSpeech ) {
+    patchState( { selectedSpeech : null } );
     return this.appService
       .getSpeeches( ( ( speech : SpeechModel ) => {
         return speech.id === id && (speech.authorId === getState().currentUser.id || speech.isPublic);
@@ -104,7 +105,10 @@ export class AppState {
   @Action( AddSpeech )
   addSpeech( { getState, patchState } : StateContext<AppStateModel>, { speech } : AddSpeech ) {
     return this.appService.addSpeech( speech ).pipe( tap( ( response : SpeechModel ) => {
-      patchState( { mySpeeches : [ ...getState().mySpeeches, response ] } );
+      patchState( {
+        mySpeeches : [ ...getState().mySpeeches, response ],
+        selectedSpeech : speech
+      } );
     } ) );
   }
 
@@ -114,7 +118,8 @@ export class AppState {
       patchState( {
         mySpeeches : getState().mySpeeches.map( ( speechTemp : SpeechModel ) => {
           return speechTemp.id === result.id ? <SpeechModel>{ ...result } : speechTemp;
-        } )
+        } ),
+        selectedSpeech : result
       } );
     } ) );
   }

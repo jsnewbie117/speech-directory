@@ -4,6 +4,7 @@ export interface SpeechModel {
   id? : number;
   title : string;
   content : string;
+  contents? : string[];
   authorId : number;
   author? : UserModel;
   keywords : string[];

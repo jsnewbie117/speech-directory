@@ -1,3 +1,36 @@
-<p>
-    speech-editor works!
-</p>
+<form class="needs-validation" novalidate [formGroup]="speechForm" (ngSubmit)="save()"
+      style="margin-bottom: 220px;">
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" formControlName="title" placeholder="Title" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea class="form-control" id="content" formControlName="content" rows="10"></textarea>
+    </div>
+    <div class="form-row mb-3">
+        <div class="col-sm-8">
+            <label for="keywords">Keywords</label>
+            <input type="text" class="form-control mb-2" id="keywords" formControlName="keywords"
+                   placeholder="Type any keyword">
+        </div>
+        <div class="col-sm-4">
+            <label>Date of Speech</label>
+            <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd"
+                       name="dp" formControlName="dateOfSpeech" ngbDatepicker #d="ngbDatepicker" readonly>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                        <i class="far fa-calendar-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-5">
+        <button class="btn btn-primary mr-2" type="submit">Save</button>
+        <button class="btn btn-light" type="button" (click)="cancel()">Cancel</button>
+    </div>
+</form>
