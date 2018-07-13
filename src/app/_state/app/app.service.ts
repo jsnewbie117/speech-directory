@@ -54,6 +54,7 @@ export class AppService {
         speech.id = this.speechId++;
         speech.author = this.users.find( ( user : UserModel ) => user.id === speech.authorId );
         speech.contents = speech.content.split( '\n' );
+        this.speeches.push( speech );
         obs.next( speech );
         obs.complete();
       }, 1000 );

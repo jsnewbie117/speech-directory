@@ -16,7 +16,7 @@ import { AppState } from '../../_state/app/app.state';
 export class SpeechEditorComponent implements OnInit {
 
   @Select( AppState.selectedSpeech ) speech$ : Observable<SpeechModel>;
-  @Output() saved = new EventEmitter<void>();
+  @Output() saved = new EventEmitter<number>();
   speechSnapshot : SpeechModel;
   speechForm : FormGroup;
 
@@ -56,12 +56,15 @@ export class SpeechEditorComponent implements OnInit {
       .dispatch( new (this.speechSnapshot.id ? EditSpeech : AddSpeech)( speech ) )
       .subscribe( () => {
         this.speechForm.enable();
-        this.saved.emit();
+        this.saved.emit( this.store.selectSnapshot( ( state : AppState ) => {
+          console.log(state.app.selectedSpeech.id);
+          return state.app.selectedSpeech.id;
+        } ) );
       } );
   }
 
   cancel() {
-    this.saved.emit();
+    this.saved.emit(null);
   }
 
   private parseDateToStruct( date : string ) : NgbDateStruct {

@@ -107,7 +107,7 @@ export class AppState {
     return this.appService.addSpeech( speech ).pipe( tap( ( response : SpeechModel ) => {
       patchState( {
         mySpeeches : [ ...getState().mySpeeches, response ],
-        selectedSpeech : speech
+        selectedSpeech : response
       } );
     } ) );
   }
