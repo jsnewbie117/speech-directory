@@ -1,8 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { SpeechModel } from '../../_shared/models/speech.model';
-import { EditSpeech } from '../../_state/app/app.actions';
+import { DeleteSpeech, EditSpeech } from '../../_state/app/app.actions';
 import { AppState } from '../../_state/app/app.state';
 
 @Component( {
@@ -16,7 +18,7 @@ export class SpeechDetailComponent implements OnInit {
 
   @Output() edit = new EventEmitter<void>();
 
-  constructor( private store : Store ) {
+  constructor( private store : Store, private modalService : NgbModal, private router : Router ) {
   }
 
   ngOnInit() {
@@ -32,6 +34,17 @@ export class SpeechDetailComponent implements OnInit {
     };
     speech.isPublic = !speech.isPublic;
     this.store.dispatch( new EditSpeech( speech ) );
+  }
+
+  deleteSpeech( content ) {
+    this.modalService.open( content, { size : 'sm' } );
+  }
+
+  confirmDelete() {
+    const speech = this.store.selectSnapshot<SpeechModel>( ( state : AppState ) => state.app.selectedSpeech );
+    this.store.dispatch( new DeleteSpeech( speech.id ) ).subscribe( () => {
+      this.router.navigate( [ '' ] );
+    } );
   }
 
 }

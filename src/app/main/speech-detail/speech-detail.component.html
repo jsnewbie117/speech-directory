@@ -27,7 +27,7 @@
                     {{(speech$ | async).isPublic ? 'Unshare' : 'Share'}}
                 </button>
                 <div class="dropdown-divider"></div>
-                <button class="dropdown-item">Delete</button>
+                <button class="dropdown-item" (click)="deleteSpeech(content)">Delete</button>
             </div>
         </div>
     </div>
@@ -37,5 +37,20 @@
     <h5 class="mb-4">
         <span class="badge badge-secondary mr-2" *ngFor="let keyword of (speech$ | async).keywords">{{keyword}}</span>
     </h5>
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h5 class="modal-title">Delete Speech</h5>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete this Speech?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="confirmDelete(); c()">Yes, Delete</button>
+            <button type="button" class="btn btn-light" (click)="c()">No, Cancel</button>
+        </div>
+    </ng-template>
 
 </div>
