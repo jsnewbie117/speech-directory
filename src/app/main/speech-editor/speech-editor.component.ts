@@ -33,7 +33,7 @@ export class SpeechEditorComponent implements OnInit {
     this.speech$.subscribe( ( speech : SpeechModel ) => {
       const currentDate = new Date();
       const parsedDate = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getDate();
-      this.speechSnapshot = speech || {
+      this.speechSnapshot = speech || <SpeechModel>{
         title : '',
         content : '',
         keywords : [],
@@ -56,15 +56,15 @@ export class SpeechEditorComponent implements OnInit {
       .dispatch( new (this.speechSnapshot.id ? EditSpeech : AddSpeech)( speech ) )
       .subscribe( () => {
         this.speechForm.enable();
-        this.saved.emit( this.store.selectSnapshot( ( state : AppState ) => {
-          console.log(state.app.selectedSpeech.id);
+        this.saved.emit( this.store.selectSnapshot( state => {
+          console.log( state.app.selectedSpeech.id );
           return state.app.selectedSpeech.id;
         } ) );
       } );
   }
 
   cancel() {
-    this.saved.emit(null);
+    this.saved.emit( null );
   }
 
   private parseDateToStruct( date : string ) : NgbDateStruct {
@@ -84,7 +84,7 @@ export class SpeechEditorComponent implements OnInit {
 
   private sanitizePayload() : SpeechModel {
     const formValue = this.speechForm.getRawValue();
-    const currentUser = this.store.selectSnapshot<UserModel>( ( state : AppState ) => state.app.currentUser );
+    const currentUser = this.store.selectSnapshot<UserModel>( state => state.app.currentUser );
     return {
       id : this.speechSnapshot.id,
       title : formValue.title,

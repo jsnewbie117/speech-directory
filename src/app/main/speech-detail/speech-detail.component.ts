@@ -30,7 +30,7 @@ export class SpeechDetailComponent implements OnInit {
 
   toggleSpeech() {
     const speech = {
-      ...this.store.selectSnapshot<SpeechModel>( ( state : AppState ) => state.app.selectedSpeech )
+      ...this.store.selectSnapshot<SpeechModel>( state => state.app.selectedSpeech )
     };
     speech.isPublic = !speech.isPublic;
     this.store.dispatch( new EditSpeech( speech ) );
@@ -41,7 +41,7 @@ export class SpeechDetailComponent implements OnInit {
   }
 
   confirmDelete() {
-    const speech = this.store.selectSnapshot<SpeechModel>( ( state : AppState ) => state.app.selectedSpeech );
+    const speech = this.store.selectSnapshot<SpeechModel>( state => state.app.selectedSpeech );
     this.store.dispatch( new DeleteSpeech( speech.id ) ).subscribe( () => {
       this.router.navigate( [ '' ] );
     } );
